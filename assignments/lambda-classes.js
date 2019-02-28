@@ -20,12 +20,27 @@ class Instructor extends Person  {
         this.favLanguage = instructorAttrs.favLanguage;
         this.catchPhrase = instructorAttrs.catchPhrase;
     }
+
     demo(subject) {
         console.log(`Today we are learning about ${subject}.`)
     }
 
     grade(student, subject){
         console.log(`${student.name} receives a perfect score on ${subject}.`);
+    }
+
+    changeGrade(student) {
+        let coinFlip = Math.round(Math.random());
+        console.log(`Coin landed on ${coinFlip}`)
+        let newPoints = Math.round((Math.random() * (10)) + 1);
+        //console.log(`newPoints is ${newPoints}`)
+        if(coinFlip === 0){
+          student.grade += newPoints;
+          return student.grade;
+        } else {
+            student.grade -= newPoints;
+            return student.grade;
+        }  
     }
 }    
 
@@ -35,6 +50,7 @@ class Student extends Person {
         this.previousBackground = studentAttrs.previousBackground;
         this.className = studentAttrs.className;
         this.favSubjects = studentAttrs.favSubjects;
+        this.grade = studentAttrs.grade;
     }
 
     listsSubjects(){
@@ -47,6 +63,17 @@ class Student extends Person {
 
     sprintChallenge(subject) {
         console.log(`${this.name} has begun sprint challenge on ${subject}.`)
+    }
+
+    graduate(studentsInstructor) {
+        if (this.grade >= 70) {
+            console.log (`Congratulation ${this.name}, you're ready to graduate!`)
+        } else{
+            console.log(`Old grade is ${this.grade}`);
+            studentsInstructor.changeGrade(this);
+            console.log(`New grade is ${this.grade}`);
+            this.graduate(studentsInstructor);
+        }
     }
 }
 
@@ -91,7 +118,8 @@ const James = new Student({
     gender: "male",
     previousBackground: "Teacher",
     className: "CS120",
-    favSubjects: ["Javascript", "Python", "CSS"]
+    favSubjects: ["Javascript", "Python", "CSS"],
+    grade: 50
 });
 
 James.speak();
@@ -106,7 +134,8 @@ const Mary = new Student({
     gender: "female",
     previousBackground: "Grad Student",
     className: "CS125",
-    favSubjects: ["Ruby", "Unity", "Java"]
+    favSubjects: ["Ruby", "Unity", "Java"],
+    grade: 80
 });
 
 Mary.speak();
@@ -165,3 +194,11 @@ const Hannah = new ProjectManager({
 
 David.standUp("CS7");
 David.debugsCode(James, "Python");
+
+console.log(James.grade);
+
+Bill.changeGrade(James);
+
+console.log(James.grade);
+
+console.log(James.graduate(Bill));
