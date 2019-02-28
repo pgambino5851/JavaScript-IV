@@ -25,7 +25,7 @@ class Instructor extends Person  {
     }
 
     grade(student, subject){
-        console.log(`${student.name} receives a perfect score on ${subject}`);
+        console.log(`${student.name} receives a perfect score on ${subject}.`);
     }
 }    
 
@@ -43,6 +43,10 @@ class Student extends Person {
 
     PRAssignment(subject) {
         console.log(`${this.name} has submitted a PR for ${subject}.`);
+    }
+
+    sprintChallenge(subject) {
+        console.log(`${this.name} has begun sprint challenge on ${subject}.`)
     }
 }
 
@@ -93,20 +97,22 @@ const James = new Student({
 James.speak();
 James.listsSubjects();
 James.PRAssignment("Javascript");
+James.sprintChallenge("User Interface")
 
 const Mary = new Student({
     name: "Mary",
     age: 25,
-    location: "Bronx",
-    gender: "male",
-    previousBackground: "Teacher",
-    className: "CS120",
-    favSubjects: ["Javascript", "Python", "CSS"]
+    location: "Philadelphia",
+    gender: "female",
+    previousBackground: "Grad Student",
+    className: "CS125",
+    favSubjects: ["Ruby", "Unity", "Java"]
 });
 
-James.speak();
-James.listsSubjects();
-James.PRAssignment("Javascript");
+Mary.speak();
+Mary.listsSubjects();
+Mary.PRAssignment("Python");
+James.sprintChallenge("Javascript")
 
 const Bill = new Instructor({
     name: "Bill",
@@ -121,3 +127,41 @@ const Bill = new Instructor({
 Bill.speak();
 Bill.demo("Javascript");
 Bill.grade(James, "Javascript");
+
+const Audrey = new Instructor({
+    name: "Audrey",
+    age: 37,
+    location: "Pittsburgh",
+    gender: "female",
+    specialty: "Python",
+    favLanguage: "Ruby",
+    catchPhrase: "And that's the waaaaaay the news goes!"
+});
+
+Audrey.speak();
+Audrey.demo("Python");
+Audrey.grade(Mary, "Python");
+
+const David = new ProjectManager({
+    name: "David",
+    age: 32,
+    location: "Portland",
+    gender: "male",
+    gradClassName: "CS2",
+    favInstructor: "Josh"
+});
+
+David.standUp("CS5");
+David.debugsCode(Mary, "Ruby");
+
+const Hannah = new ProjectManager({
+    name: "Hannah",
+    age: 34,
+    location: "St. Louis",
+    gender: "female",
+    gradClassName: "CS4",
+    favInstructor: "Ryan"
+});
+
+David.standUp("CS7");
+David.debugsCode(James, "Python");
